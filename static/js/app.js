@@ -7,11 +7,14 @@ async function fetchData() {
         }
 
         const data = await response.json();
+        data.get
+        console.log(data)
 
         const dataElement = document.getElementById('data');
 
         if (dataElement) {
-            dataElement.innerText = JSON.stringify(data, null, 2);
+            dataElement.innerText = data.temperatur
+
         } else {
             console.error("Element mit ID 'data' nicht gefunden.");
         }

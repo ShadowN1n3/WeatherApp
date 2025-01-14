@@ -28,7 +28,7 @@ class DataFetcher:
     def get_data(self):
         if not self.data_cache:
             return {"error": "Data not ready, please try again later"}
-        return self.data_cache['temperature']
+        return self.data_cache
 
     def fetch_data_periodically(self, interval=600):
         while True:
