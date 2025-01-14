@@ -15,8 +15,8 @@
             <div class="frame inner-frame">
                 <!-- Flask template area for left panel -->
                 <div id="left-panel-content">
-                    <!-- Your Flask content will be injected here -->
-                    {{ left_content|safe }}
+                    <h1>Live Data</h1>
+                    <pre id="data">Daten werden geladen...</pre>
                 </div>
             </div>
         </div>
@@ -28,13 +28,15 @@
             <div class="frame inner-frame white">
                 <!-- Flask template area for right panel -->
                 <div id="right-panel-content">
-                    <!-- Your Flask content will be injected here -->
                     {{ right_content|safe }}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Linke die externe JavaScript-Datei -->
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
 </body>
 </html>

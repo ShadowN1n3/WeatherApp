@@ -1,6 +1,30 @@
-// JavaScript for handling mobile responsiveness and any interactive features
-document.addEventListener('DOMContentLoaded', function() {
-    // Add any JavaScript functionality here
-    // For now, this file is included for future interactive features
-    console.log('Application loaded successfully');
-});
+// Funktion zum Abrufen der Wetterdaten und Aktualisieren der Seite
+async function fetchData() {
+    try {
+        const response = await fetch('/api/data');
+        if (!response.ok) {
+            throw new Error('Fehler beim Abrufen der Daten: ' + response.statusText);
+        }
+
+        const data = await response.json();
+
+        const dataElement = document.getElementById('data');
+
+        if (dataElement) {
+            dataElement.innerText = JSON.stringify(data, null, 2);
+        } else {
+            console.error("Element mit ID 'data' nicht gefunden.");
+        }
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
+
+        const dataElement = document.getElementById('data');
+        if (dataElement) {
+            dataElement.innerText = "Fehler beim Abrufen der Daten.";
+        }
+    }
+}
+
+// Funktion sofort beim Laden der Seite ausführen und alle 10 Sekunden wiederholen
+window.onload = fetchData;
+setInterval(fetchData, 60000);
