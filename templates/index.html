@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Layout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <!-- Left Panel (1/3 width) -->
+    <div class="panel left-panel">
+        <div class="frame outer-frame">
+            <!-- Inner Frame -->
+            <div class="frame inner-frame">
+                <!-- Flask template area for left panel -->
+                <div id="left-panel-content">
+                    <!-- Your Flask content will be injected here -->
+                    {{ left_content|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Right Panel (2/3 width) -->
+    <div class="panel right-panel">
+        <div class="frame outer-frame light">
+            <!-- Inner Frame -->
+            <div class="frame inner-frame white">
+                <!-- Flask template area for right panel -->
+                <div id="right-panel-content">
+                    <!-- Your Flask content will be injected here -->
+                    {{ right_content|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
