@@ -25,6 +25,5 @@ async function fetchData() {
     }
 }
 
-// Funktion sofort beim Laden der Seite ausführen und alle 10 Sekunden wiederholen
 window.onload = fetchData;
 setInterval(fetchData, 60000);
