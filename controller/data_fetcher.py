@@ -16,7 +16,7 @@ class DataFetcher:
             if response.status_code == 200:
                 data = response.json()
                 if 'weather' in data and len(data['weather']) > 0:
-                    self.data_cache = data['weather'][0]
+                    self.data_cache = data['weather'][0]['temperature']
                     print("Daten erfolgreich abgerufen und im Cache gespeichert.")
                 else:
                     print("Keine Wetterdaten verfügbar.")
