@@ -18,9 +18,7 @@ class DataFetcher:
                 if 'weather' in data and len(data['weather']) > 0:
                     formatTemp = str(data['weather'][0]['temperature'])
                     self.data_cache = formatTemp + "°"
-                    print(self.data_cache)
                     self.data_cache = self.data_cache.__add__(" - " +self.cords_spenge[2])
-                    print(self.data_cache)
                     print("Daten erfolgreich abgerufen und im Cache gespeichert.")
                 else:
                     print("Keine Wetterdaten verfügbar.")
