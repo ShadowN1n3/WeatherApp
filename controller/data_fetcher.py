@@ -5,7 +5,7 @@ import time
 class DataFetcher:
     def __init__(self):
         self.api_url = "https://api.brightsky.dev/weather"
-        self.cords_spenge = ["52.144642", "8.482570"]
+        self.cords_spenge = ["52.144642", "8.482570", "Spenge"]
         self.data_cache = {}
 
 
@@ -16,7 +16,11 @@ class DataFetcher:
             if response.status_code == 200:
                 data = response.json()
                 if 'weather' in data and len(data['weather']) > 0:
-                    self.data_cache = data['weather'][0]['temperature']
+                    formatTemp = str(data['weather'][0]['temperature'])
+                    self.data_cache = formatTemp + "°"
+                    print(self.data_cache)
+                    self.data_cache = self.data_cache.__add__(" - " +self.cords_spenge[2])
+                    print(self.data_cache)
                     print("Daten erfolgreich abgerufen und im Cache gespeichert.")
                 else:
                     print("Keine Wetterdaten verfügbar.")
