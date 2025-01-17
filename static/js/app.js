@@ -9,7 +9,16 @@ function fetchData() {
             return response.text();
         })
         .then(data => {
-            dataElement.textContent = removeSpacesAndLineBreaks(data + "°")
+
+            try {
+                data = data.replace(/\\u([\dA-Fa-f]{4})/g, (match, code) =>
+                    String.fromCharCode(parseInt(code, 16))
+                );
+            } catch (e) {
+                console.warn("Fehler bei der Escape-Verarbeitung:", e);
+            }
+
+            dataElement.textContent = data.replaceAll("\"", "");
         })
         .catch(error => {
             console.error("Fehler beim Abrufen der Daten:", error);
@@ -28,7 +37,3 @@ cards.forEach((card, index) => {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 });
-
-function removeSpacesAndLineBreaks(input) {
-  return input.replace(/[\s\n\r]+/g, '');
-}
