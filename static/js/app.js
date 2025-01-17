@@ -9,7 +9,7 @@ function fetchData() {
             return response.text();
         })
         .then(data => {
-            dataElement.textContent = data;
+            dataElement.textContent = removeSpacesAndLineBreaks(data + "°")
         })
         .catch(error => {
             console.error("Fehler beim Abrufen der Daten:", error);
@@ -28,3 +28,7 @@ cards.forEach((card, index) => {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 });
+
+function removeSpacesAndLineBreaks(input) {
+  return input.replace(/[\s\n\r]+/g, '');
+}
