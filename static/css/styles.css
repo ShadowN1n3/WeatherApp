@@ -87,6 +87,6 @@ body::after {
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
     border-radius: 10px;
-    font-size: 5em;
+    font-size: 80px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
 }
