@@ -30,7 +30,7 @@ class DataFetcher:
             return {"error": "Data not ready, please try again later"}
         return self.data_cache
 
-    def fetch_data_periodically(self, interval=600):
+    def fetch_data_periodically(self, interval=1200):
         while True:
             self.fetch_data(datetime.datetime.now(), self.cords_spenge[0], self.cords_spenge[1], self.api_url)
             time.sleep(interval)
