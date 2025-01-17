@@ -13,7 +13,7 @@ body::before {
     width: 100%;
     height: 100%;
     background-image: radial-gradient(#f00, #f0f);
-    clip-path: circle(30% at right 70%);
+    clip-path: circle(30% at right 80%);
 }
 body::after {
     content: "";
@@ -23,7 +23,7 @@ body::after {
     width: 100%;
     height: 100%;
     background: linear-gradient(#2196f3, #e91e63);
-    clip-path: circle(45% at 10% 10%);
+    clip-path: circle(30% at 5% 10%);
 
 }
 
@@ -65,18 +65,17 @@ body::after {
     align-items: center;
     height: 90%;
     width: 90%;
-    border: 2px solid #d900ff;
     flex-direction: column;
 }
-.weather-container .weather-image {
+.weather-container .weather-image-container {
     width: 50%;
     height: 50%;
-    border: 2px solid black;
     border-radius: 10px;
     margin-bottom: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
 }
 
 .weather-container .weather-data {
@@ -87,5 +86,7 @@ body::after {
     align-items: center;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    border-radius: 10px;
     font-size: 90px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
 }
