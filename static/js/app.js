@@ -21,3 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchData();
     setInterval(fetchData, 60000);
 });
+
+const cards = document.querySelectorAll('.card');
+cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+});
