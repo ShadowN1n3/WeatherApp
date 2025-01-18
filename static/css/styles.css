@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     height: auto;
-    background-color: #000435;
+    background-color: #000423;
 }
 body::before {
     content: "";
