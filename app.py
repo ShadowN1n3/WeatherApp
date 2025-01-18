@@ -11,7 +11,6 @@ data_fetcher = DataFetcher()
 def get_data():
     return jsonify(data_fetcher.get_data())
 
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -19,4 +18,4 @@ def home():
 
 if __name__ == '__main__':
     threading.Thread(target=data_fetcher.fetch_data_periodically, daemon=True).start()
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

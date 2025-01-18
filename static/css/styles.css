@@ -3,7 +3,7 @@ body {
     justify-content: center;
     align-items: center;
     height: auto;
-    background-color: #161623;
+    background-color: #000435;
 }
 body::before {
     content: "";
@@ -76,6 +76,10 @@ body::after {
     justify-content: center;
     align-items: center;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+}
+.weather-image {
+    width: 283px;
+    height: 283px;
 }
 
 .weather-container .weather-data {
