@@ -44,13 +44,10 @@ cards.forEach((card, index) => {
 
 function changeImage() {
     let tempAsInt = parseInt(temp);
-    console.log(tempAsInt)
     const currentImage = document.getElementById("weather-image");
     if (tempAsInt <= 0) {
-        console.log("cold")
         currentImage.src = '/static/images/cold.png';
     } else if (tempAsInt > 0) {
-        console.log("warm")
         currentImage.src = '/static/images/warm.png';
     }
 }
