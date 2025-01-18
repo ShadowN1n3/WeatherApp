@@ -18,4 +18,4 @@ def home():
 
 if __name__ == '__main__':
     threading.Thread(target=data_fetcher.fetch_data_periodically, daemon=True).start()
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

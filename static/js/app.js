@@ -16,17 +16,10 @@ function fetchData() {
             return response.text();
         })
         .then(data => {
-
-            try {
-                data = data.replace(/\\u([\dA-Fa-f]{4})/g, (match, code) =>
-                    String.fromCharCode(parseInt(code, 16))
-                );
-            } catch (e) {
-                console.warn("Fehler bei der Escape-Verarbeitung:", e);
-            }
-
+            data = data.replace(" - ", "° - ")
             dataElement.textContent = data.replaceAll("\"", "");
             temp = data.substring(1, data.lastIndexOf("°"))
+            console.log(temp);
             changeImage()
         })
         .catch(error => {
