@@ -11,7 +11,6 @@ data_fetcher = DataFetcher()
 def get_data():
     return jsonify(data_fetcher.get_data())
 
-
 @app.route("/")
 def home():
     return render_template("index.html")
