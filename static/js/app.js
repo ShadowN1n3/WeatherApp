@@ -19,7 +19,6 @@ function fetchData() {
             data = data.replace(" - ", "° - ")
             dataElement.textContent = data.replaceAll("\"", "");
             temp = data.substring(1, data.lastIndexOf("°"))
-            console.log(temp);
             changeImage()
         })
         .catch(error => {
