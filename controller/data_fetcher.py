@@ -9,7 +9,6 @@ class DataFetcher:
         self.api_url = "https://api.brightsky.dev/weather"
         self.cords_spenge = ["52.144642", "8.482570", "Spenge"]
         self.data_cache = {}
-        self.temp_city = ""
 
 
     def fetch_data(self, currentDate, locationLat, locationLng, url):
