@@ -1,5 +1,4 @@
 import datetime
-from multiprocessing.spawn import prepare
 
 import requests
 import time

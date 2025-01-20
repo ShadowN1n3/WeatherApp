@@ -8,20 +8,27 @@
 <body>
 <div class="container">
     <div class="card" id="card1">
+        <div class="toolbar">
+            <input type="checkbox" id="toggle" checked />
+            <label class="button" for="toggle">
+                <nav class="nav">
+                    <ul>
+                        <li><a href="">1<i class="ri-mic-line"></i></a></li>
+                        <li><a href="">2<i class="ri-message-2-line"></i></a></li>
+                        <li><a href="">3<i class="ri-file-line"></i></a></li>
+                        <li><a href="api/data">4<i class="ri-send-plane-2-line"></i></a></li>
+                    </ul>
+                </nav>
+            </label>
+        </div>
         <div class="weather-container">
             <div class="weather-image-container">
-                <img class="weather-image" id="weather-image" src="" alt="test" style="height: auto">
+                <img class="weather-image" id="weather-image" src="" alt="test" style="height: auto" />
             </div>
             <div class="weather-data">
                 <div class="content" id="data">data placeholder</div>
             </div>
         </div>
-    </div>
-    <div class="card" id="card2">
-        <div class="content"><h2>Card2</h2></div>
-    </div>
-    <div class="card" id="card3">
-        <div class="content"><h2>Card3</h2></div>
     </div>
 </div>
 </body>

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     fetchData();
     setInterval(fetchData, 60000);
@@ -14,10 +13,10 @@ function fetchData() {
             }
             return response.text();
         })
-        .then(dataString  => {
+        .then(dataString => {
             const data = JSON.parse(dataString);
             if (Array.isArray(data)) {
-                let { temperature, icon } = data[0];
+                let {temperature, icon} = data[0];
 
                 dataElement.textContent = `${temperature}° - Spenge`;
 
@@ -36,16 +35,24 @@ function fetchData() {
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.addEventListener('click', () => {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
 });
 
 function changeImage(icon) {
 
     const currentImage = document.getElementById("weather-image");
-    if (icon === "partly-cloudy-night") {
-        currentImage.src = '/static/images/partly-cloudy-night.png';
-    } else if (icon === "partly-cloudy-day") {
-        currentImage.src = '/static/images/partly-cloudy-night.png';
+    try {
+        if (icon === "partly-cloudy-night") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+        } else if (icon === "partly-cloudy-day") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+        } else if (icon === "cloudy") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+            //currentImage.src = '/static/images/cloudy.png';
+        }
+    } catch (e) {
+        console.error(e, "image not found");
     }
+
 }
