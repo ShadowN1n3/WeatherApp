@@ -1,4 +1,5 @@
 import datetime
+
 import requests
 import time
 
@@ -16,9 +17,7 @@ class DataFetcher:
             if response.status_code == 200:
                 data = response.json()
                 if 'weather' in data and len(data['weather']) > 0:
-                    formatTemp = str(data['weather'][0]['temperature'])
-                    self.data_cache = formatTemp + "°"
-                    self.data_cache = self.data_cache.__add__(" - " +self.cords_spenge[2])
+                    self.data_cache = data['weather']
                     print("Daten erfolgreich abgerufen und im Cache gespeichert.")
                 else:
                     print("Keine Wetterdaten verfügbar.")
@@ -31,6 +30,7 @@ class DataFetcher:
         if not self.data_cache:
             return {"error": "Data not ready, please try again later"}
         return self.data_cache
+
 
     def fetch_data_periodically(self, interval=1200):
         while True:

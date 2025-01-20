@@ -3,7 +3,8 @@ body {
     justify-content: center;
     align-items: center;
     height: auto;
-    background-color: #161623;
+    background-color: #000423;
+    font-family: 'Bookman Old Style', 'Arial', sans-serif;
 }
 body::before {
     content: "";
@@ -24,7 +25,6 @@ body::after {
     height: 100%;
     background: linear-gradient(#2196f3, #e91e63);
     clip-path: circle(30% at 5% 10%);
-
 }
 
 .container {
@@ -54,11 +54,13 @@ body::after {
     margin-top: 40px;
     margin-bottom: 50px;
 }
+
 .container .card .content {
     padding: 20px;
     text-align: center;
     transition: 0.5s;
 }
+
 .weather-container {
     display: flex;
     justify-content: center;
@@ -67,6 +69,7 @@ body::after {
     width: 90%;
     flex-direction: column;
 }
+
 .weather-container .weather-image-container {
     width: 50%;
     height: 50%;
@@ -76,6 +79,11 @@ body::after {
     justify-content: center;
     align-items: center;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.weather-image {
+    width: 283px;
+    height: 283px;
 }
 
 .weather-container .weather-data {
@@ -90,3 +98,141 @@ body::after {
     font-size: 70px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
 }
+
+#toggle {
+    -webkit-appearance: none;
+}
+
+.button {
+    position: absolute;
+    z-index: 999;
+    width: 270px;
+    height: 65px;
+    left: 10px;
+    top: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0 24px;
+    overflow: hidden;
+    transition: width 300ms linear;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.button:before {
+    position: absolute;
+    content: "";
+    width: 30px;
+    height: 2px;
+    background: #fff;
+    transform: rotate(225deg);
+    transition: all 0.4s ease;
+}
+
+.button:after {
+    position: absolute;
+    content: "";
+    width: 30px;
+    height: 2px;
+    background: #fff;
+    transform: rotate(135deg);
+    transition: all 0.4s ease;
+}
+
+.nav {
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    border-radius: 5px;
+    transform: translateX(10%);
+    padding: 10px;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav li {
+    opacity: 0;
+    list-style: none;
+}
+
+.nav li:nth-child(1) {
+    transform-origin: bottom;
+    animation: itop 300ms 300ms linear forwards;
+}
+
+.nav li:nth-child(2) {
+    transform-origin: bottom;
+    animation: itop 300ms 400ms linear forwards;
+}
+
+.nav li:nth-child(3) {
+    transform-origin: bottom;
+    animation: itop 300ms 500ms linear forwards;
+}
+
+.nav li:nth-child(4) {
+    transform-origin: bottom;
+    animation: itop 300ms 600ms linear forwards;
+}
+
+.nav a {
+    transition: all 0.5s linear;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    font-size: 30px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px 0 0;
+    border-radius: 15px;
+
+}
+
+.nav a:hover {
+    color: #fff;
+    background: #1c1c1c;
+    border-radius: 15px;
+}
+
+#toggle:checked ~ label .nav {
+    display: none;
+    opacity: 0;
+    transform: translateX(0);
+}
+
+#toggle:checked ~ .button:before {
+    transform: rotate(90deg);
+}
+
+#toggle:checked ~ .button:after {
+    color: #e52df3;
+    transform: rotate(0deg);
+}
+
+#toggle:checked ~ .button {
+    width: 20px;
+    transition: all 0.1s linear;
+}
+
+@keyframes itop {
+    0% {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

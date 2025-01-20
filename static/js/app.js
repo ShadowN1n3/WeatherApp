@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", () => {
+    fetchData();
+    setInterval(fetchData, 60000);
+});
+
 function fetchData() {
     const dataElement = document.getElementById("data");
 
@@ -8,32 +13,46 @@ function fetchData() {
             }
             return response.text();
         })
-        .then(data => {
+        .then(dataString => {
+            const data = JSON.parse(dataString);
+            if (Array.isArray(data)) {
+                let {temperature, icon} = data[0];
 
-            try {
-                data = data.replace(/\\u([\dA-Fa-f]{4})/g, (match, code) =>
-                    String.fromCharCode(parseInt(code, 16))
-                );
-            } catch (e) {
-                console.warn("Fehler bei der Escape-Verarbeitung:", e);
+                dataElement.textContent = `${temperature}° - Spenge`;
+
+                changeImage(`${icon}`);
+            } else {
+                throw new Error("Unerwartetes Datenformat");
             }
-
-            dataElement.textContent = data.replaceAll("\"", "");
         })
         .catch(error => {
             console.error("Fehler beim Abrufen der Daten:", error);
             dataElement.textContent = "Fehler beim Abrufen der Daten.";
         });
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
-    setInterval(fetchData, 60000);
-});
+}
 
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.addEventListener('click', () => {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.scrollIntoView({behavior: 'smooth', block: 'center'});
     });
 });
+
+function changeImage(icon) {
+
+    const currentImage = document.getElementById("weather-image");
+    try {
+        if (icon === "partly-cloudy-night") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+        } else if (icon === "partly-cloudy-day") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+        } else if (icon === "cloudy") {
+            currentImage.src = '/static/images/partly-cloudy-night.png';
+            //currentImage.src = '/static/images/cloudy.png';
+        }
+    } catch (e) {
+        console.error(e, "image not found");
+    }
+
+}
