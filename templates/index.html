@@ -4,31 +4,25 @@
     <meta charset="UTF-8">
     <title>WeatherApp</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <div class="container">
-    <div class="card" id="card1">
+    <div class="card" id="card">
         <div class="toolbar">
             <input type="checkbox" id="toggle" checked />
             <label class="button" for="toggle">
                 <nav class="nav">
                     <ul>
-                        <li><a href="">1<i class="ri-mic-line"></i></a></li>
-                        <li><a href="">2<i class="ri-message-2-line"></i></a></li>
-                        <li><a href="">3<i class="ri-file-line"></i></a></li>
-                        <li><a href="api/data">4<i class="ri-send-plane-2-line"></i></a></li>
+                        <li><a href="#" data-page="weather">1</a></li>
+                        <li><a href="#" data-page="calendar">2</a></li>
+                        <li><a href="#" data-page="filler">3</a></li>
+                        <li><a href="#" data-page="api_data">4</a></li>
                     </ul>
                 </nav>
             </label>
         </div>
-        <div class="weather-container">
-            <div class="weather-image-container">
-                <img class="weather-image" id="weather-image" src="" alt="test" style="height: auto" />
-            </div>
-            <div class="weather-data">
-                <div class="content" id="data">data placeholder</div>
-            </div>
-        </div>
+        <div id="content-container" class="content-container"></div>
     </div>
 </div>
 </body>
