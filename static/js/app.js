@@ -1,45 +1,64 @@
-let currentPage = "weather"
+let currentPage = "weather";
+let intervalId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadContent('weather', fetchWeatherData);
-    setInterval(fetchWeatherData, 60000);
+    switchPage("weather");
 });
 
-document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', event => {
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", event => {
         event.preventDefault();
-        const page = event.target.getAttribute('data-page');
-        currentPage = page;
-        if (page === "weather") {
-            loadContent(page, fetchWeatherData);
-        } else if (page === "calendar") {
+        const page = event.target.getAttribute("data-page");
 
-        } else if (page === "api_data") {
-            loadContent(page, fetchApiData);
-        }
+        closeToolbar();
+        switchPage(page);
     });
 });
 
+function closeToolbar() {
+    const toggleCheckbox = document.getElementById("toggle");
+
+    if (!toggleCheckbox) {
+        console.error("Checkbox-Element wurde nicht gefunden.");
+        return;
+    }
+    toggleCheckbox.checked = true;
+}
+
+function switchPage(page) {
+    currentPage = page;
+    clearInterval(intervalId);
+
+    if (page === "weather") {
+        loadContent(page, fetchWeatherData);
+        intervalId = setInterval(fetchWeatherData, 10 * 60 * 1000);
+    } else if (page === "calendar") {
+        loadContent(page);
+    } else if (page === "3") {
+        loadContent(page);
+    } else if (page === "api_data") {
+        loadContent(page, fetchApiData);
+        intervalId = setInterval(fetchApiData, 10 * 60 * 1000);
+    }
+}
+
 function fetchWeatherData() {
-    if (currentPage === "weather") {
-        const dataElement = document.getElementById("data");
+    if (currentPage !== "weather") return;
+
+    const dataElement = document.getElementById("data");
 
     fetch("/api/data")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP-Error: ${response.status}`);
             }
-            return response.text();
+            return response.json();
         })
-        .then(dataString => {
-            const data = JSON.parse(dataString);
-            data.temperature = parseFloat(data.temperature).toFixed(1);
-            if (Array.isArray(data)) {
-                let {temperature, icon} = data[0];
-
-                dataElement.textContent = `${temperature}° - Spenge`;
-
-                changeImage(`${icon}`);
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                const { temperature, icon } = data[0];
+                dataElement.textContent = `${parseFloat(temperature).toFixed(1)}° - Spenge`;
+                changeImage(icon);
             } else {
                 throw new Error("Unerwartetes Datenformat");
             }
@@ -48,38 +67,54 @@ function fetchWeatherData() {
             console.error("Fehler beim Abrufen der Daten:", error);
             dataElement.textContent = "Fehler beim Abrufen der Daten.";
         });
-    }
 }
 
+function fetchApiData() {
+    const apiDataElement = document.querySelector(".api-data");
 
-const cards = document.querySelectorAll('.card');
-cards.forEach((card, index) => {
-    card.addEventListener('click', () => {
-        card.scrollIntoView({behavior: 'smooth', block: 'center'});
-    });
-});
+    if (!apiDataElement) {
+        console.error("Das Element mit der Klasse 'api-data' wurde nicht gefunden.");
+        return;
+    }
 
+    fetch("/api/data")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP-Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                apiDataElement.textContent = JSON.stringify(data[0], null, 2);
+            } else {
+                apiDataElement.textContent = "Keine Daten verfügbar oder unerwartetes Format.";
+            }
+        })
+        .catch(error => {
+            console.error("Fehler beim Abrufen der API-Daten:", error);
+            apiDataElement.textContent = "Fehler beim Abrufen der Daten.";
+        });
+}
 
 function changeImage(icon) {
-
     const currentImage = document.getElementById("weather-image");
-    try {
-        if (icon === "partly-cloudy-night") {
-            currentImage.src = '/static/images/partly-cloudy-night.png';
-        } else if (icon === "partly-cloudy-day") {
-            currentImage.src = '/static/images/partly-cloudy-night.png';
-        } else if (icon === "cloudy") {
-            currentImage.src = '/static/images/partly-cloudy-night.png';
-            //currentImage.src = '/static/images/cloudy.png';
-        }
-    } catch (e) {
-        console.error(e, "image not found");
-    }
+    const iconMap = {
+        "partly-cloudy-night": "/static/images/partly-cloudy-night.png",
+        "partly-cloudy-day": "/static/images/partly-cloudy-day.png",
+        "cloudy": "/static/images/cloudy.png",
+        "rain": "/static/images/rain.png"
+    };
 
+    if (iconMap[icon]) {
+        currentImage.src = iconMap[icon];
+    } else {
+        console.error("Unbekanntes Icon:", icon);
+    }
 }
 
-function loadContent(page, callback) {
-    const container = document.getElementById('content-container');
+function loadContent(page, callback = null) {
+    const container = document.getElementById("content-container");
     const filePath = `/static/html/${page}_content.html`;
 
     fetch(filePath)
@@ -94,36 +129,7 @@ function loadContent(page, callback) {
             if (callback) callback();
         })
         .catch(error => {
-            console.error(error);
+            console.error("Fehler beim Laden des Inhalts:", error);
             container.innerHTML = `<p>Fehler: Inhalt konnte nicht geladen werden.</p>`;
-        });
-}
-
-function fetchApiData() {
-    const apiDataElement = document.querySelector('.api-data');
-
-    if (!apiDataElement) {
-        console.error("Das Element mit der Klasse 'api-data' wurde nicht gefunden.");
-        return;
-    }
-
-    fetch('/api/data') // URL deiner API
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP-Error: ${response.status}`);
-            }
-            return response.json(); // JSON-Daten parsen
-        })
-        .then(data => {
-            if (Array.isArray(data) && data.length > 0) {
-                const firstElement = data[0]; // Nur das erste Element der JSON
-                apiDataElement.textContent = JSON.stringify(firstElement, null, 2); // Als rohe JSON in das div schreiben
-            } else {
-                apiDataElement.textContent = "Keine Daten verfügbar oder unerwartetes Format.";
-            }
-        })
-        .catch(error => {
-            console.error("Fehler beim Abrufen der API-Daten:", error);
-            apiDataElement.textContent = "Fehler beim Abrufen der Daten.";
         });
 }
